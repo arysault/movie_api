@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_api/bloc/home_bloc.dart';
@@ -125,7 +124,9 @@ class _UpCommingPageState extends State<UpCommingPage> {
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 8.0, right: 8.0),
+                                                left: 8.0,
+                                                right: 8.0,
+                                              ),
                                               child: Hero(
                                                 tag: movies[index].id + 1,
                                                 child: Container(
@@ -167,13 +168,23 @@ class _UpCommingPageState extends State<UpCommingPage> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  "\n${movies[index].title}",
-                                                  style: TextStyle(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                    8.0,
+                                                    24.0,
+                                                    8.0,
+                                                    8.0,
+                                                  ),
+                                                  child: Text(
+                                                    "${movies[index].title}",
+                                                    style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20,
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
