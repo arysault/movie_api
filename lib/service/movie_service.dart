@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:movie_api/model/movie.dart';
 import 'package:movie_api/model/results.dart';
 import 'package:movie_api/service/config/custom_dio.dart';
 import 'package:movie_api/utils/constants.dart';

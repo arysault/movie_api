@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class Constants {
   static String kBaseUrl = "https://api.themoviedb.org/";
 
-  static String kApiKey = "ef3b08dbba9437a765af7d71fd8f51c1";
+  static String kApiKey = "a5bc05fb630c9b7fdc560033345fa13e";
 
   static Options kOptions = Options(
     headers: {
@@ -11,7 +11,7 @@ class Constants {
     },
   );
   static var kParameters = {
-    "api_key": "ef3b08dbba9437a765af7d71fd8f51c1",
+    "api_key": "a5bc05fb630c9b7fdc560033345fa13e",
     "language": "en-US",
     "page": 1
   };

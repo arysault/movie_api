@@ -15,7 +15,7 @@ class _MoviePageState extends State<MoviePage> {
     return Scaffold(
       backgroundColor: Color(0xff141E26),
       appBar: AppBar(
-        backgroundColor: Color(0xff2C3740),
+        backgroundColor: Color(0xff141E26),
         title: Text(widget.movie.title),
       ),
       body: SingleChildScrollView(
@@ -113,7 +113,7 @@ class _MoviePageState extends State<MoviePage> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

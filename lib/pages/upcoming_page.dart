@@ -34,7 +34,7 @@ class _UpCommingPageState extends State<UpCommingPage> {
   }
 
   trendingsLoop() async {
-    Timer.periodic(Duration(seconds: 2), (Timer timer) {
+    Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (_currentPage < 5) {
         _currentPage++;
       } else {
@@ -190,7 +190,7 @@ class _UpCommingPageState extends State<UpCommingPage> {
                                   padding: const EdgeInsets.only(
                                       bottom: 16.0, top: 30.0),
                                   child: Text(
-                                    "Up Comming",
+                                    "Upcoming",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Colors.white,

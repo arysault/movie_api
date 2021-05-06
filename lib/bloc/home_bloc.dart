@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:movie_api/model/movie.dart';
 import 'package:movie_api/model/results.dart';
 import 'package:movie_api/service/config/base_response.dart';
 import 'package:movie_api/service/movie_service.dart';
