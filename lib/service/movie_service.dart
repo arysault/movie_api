@@ -10,14 +10,14 @@ class MovieService {
 
   String _getUpComming = "3/movie/upcoming";
 
-  Future<List<Movie>> getMovies() async {
+  Future<List<Results>> getMovies() async {
     String finalUrl = Constants.kBaseUrl + _getUpComming;
 
     Response response =
         await _dio.get(finalUrl, queryParameters: Constants.kParameters);
 
     var _results = (response.data["results"] as List)
-        .map((e) => Movie.fromJson(e))
+        .map((e) => Results.fromJson(e))
         .toList();
 
     return _results;

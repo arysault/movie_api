@@ -42,7 +42,8 @@ dependencies:
   device_info: ^1.0.0
    # Used to custom the louncher icon
   flutter_launcher_icons: ^0.8.1
-
+  page_indicator: ^0.3.0
+  carousel_slider: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
