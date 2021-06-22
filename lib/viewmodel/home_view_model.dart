@@ -5,7 +5,7 @@ import 'package:movie_api/model/results.dart';
 import 'package:movie_api/service/config/base_response.dart';
 import 'package:movie_api/service/movie_service.dart';
 
-class HomeBloc {
+class HomeViewModel {
   MovieService _movieService;
 
   StreamController<BaseResponse<List<Results>>> _movieController;
@@ -13,7 +13,7 @@ class HomeBloc {
       _movieController.stream;
   Sink<BaseResponse<List<Results>>> get movieSink => _movieController.sink;
 
-  HomeBloc() {
+  HomeViewModel() {
     _movieService = MovieService();
     _movieController = StreamController.broadcast();
   }

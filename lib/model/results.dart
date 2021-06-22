@@ -3,6 +3,7 @@ class Results {
   String backdropPath;
   List<int> genreIds;
   int id;
+  int idAPI;
   String originalLanguage;
   String originalTitle;
   String overview;
@@ -19,6 +20,7 @@ class Results {
       this.backdropPath,
       this.genreIds,
       this.id,
+      this.idAPI,
       this.originalLanguage,
       this.originalTitle,
       this.overview,
@@ -40,11 +42,21 @@ class Results {
     overview = json['overview'];
     popularity = json['popularity'];
     posterPath = json['poster_path'];
-    releaseDate = json['release_date'];
+    releaseDate = json["release_date"];
     title = json['title'];
     video = json['video'];
     voteAverage = json['vote_average'];
     voteCount = json['vote_count'];
+  }
+
+  Results.fromBD(Map<String, dynamic> json) {
+    id = json['_id'];
+    idAPI = json['idAPI'];
+    posterPath = json['posterPath'];
+    releaseDate = json['releaseDate'];
+    title = json['title'];
+    overview = json['overview'];
+    voteAverage = json['voteAverage'];
   }
 
   Map<String, dynamic> toJson() {
@@ -53,6 +65,7 @@ class Results {
     data['backdrop_path'] = this.backdropPath;
     data['genre_ids'] = this.genreIds;
     data['id'] = this.id;
+    data['idAPI'] = this.idAPI;
     data['original_language'] = this.originalLanguage;
     data['original_title'] = this.originalTitle;
     data['overview'] = this.overview;

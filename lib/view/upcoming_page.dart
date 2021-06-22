@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_api/bloc/home_bloc.dart';
 import 'package:movie_api/components/native_loading.dart';
 import 'package:movie_api/model/results.dart';
-import 'package:movie_api/pages/movie_page.dart';
 import 'package:movie_api/service/config/base_response.dart';
+import 'package:movie_api/utils/constants.dart';
 import 'package:movie_api/utils/helpers/helpers.dart';
 import 'package:movie_api/utils/helpers/manage_dialogs.dart';
+import 'package:movie_api/view/your_list.dart';
+import 'package:movie_api/viewmodel/home_view_model.dart';
 import 'package:page_indicator/page_indicator.dart';
+
+import 'movie_page.dart';
 
 class UpCommingPage extends StatefulWidget {
   @override
@@ -16,20 +19,20 @@ class UpCommingPage extends StatefulWidget {
 }
 
 class _UpCommingPageState extends State<UpCommingPage> {
-  HomeBloc _bloc = HomeBloc();
+  HomeViewModel _viewModel = HomeViewModel();
   PageController _controller = PageController(initialPage: 0);
   int _currentPage = 0;
   @override
   void initState() {
     super.initState();
-    _bloc.getMovies();
+    _viewModel.getMovies();
     trendingsLoop();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _bloc.dispose();
+    _viewModel.dispose();
   }
 
   trendingsLoop() async {
@@ -51,6 +54,65 @@ class _UpCommingPageState extends State<UpCommingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff141E26),
+      appBar: AppBar(
+        title: Text("Home"),
+        backgroundColor: Color(0xff141E26),
+      ),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Color(0xff141E26),
+        ),
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                child: Text(
+                  "PIRATA MAX",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  "Home",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Your List",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return YourList();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -73,7 +135,7 @@ class _UpCommingPageState extends State<UpCommingPage> {
                   ),
                 ),
                 StreamBuilder<BaseResponse<List<Results>>>(
-                  stream: _bloc.movieStream,
+                  stream: _viewModel.movieStream,
                   initialData: BaseResponse.completed(),
                   builder: (context, snapshot) {
                     if (snapshot.data.data != null) {
@@ -139,10 +201,10 @@ class _UpCommingPageState extends State<UpCommingPage> {
                                                           BorderRadius.circular(
                                                               8.0),
                                                       image: DecorationImage(
-                                                          image: NetworkImage(
-                                                              "https://image.tmdb.org/t/p/w500/" +
-                                                                  movies[index]
-                                                                      ?.backdropPath),
+                                                          image: NetworkImage(Constants
+                                                                  .kBaseUrlImage +
+                                                              movies[index]
+                                                                  ?.backdropPath),
                                                           fit: BoxFit.cover)),
                                                 ),
                                               ),
@@ -236,7 +298,7 @@ class _UpCommingPageState extends State<UpCommingPage> {
                                                     BorderRadius.circular(20.0),
                                                 image: DecorationImage(
                                                   image: NetworkImage(
-                                                    "https://image.tmdb.org/t/p/w500/" +
+                                                    Constants.kBaseUrlImage +
                                                         movies[index]
                                                             ?.posterPath,
                                                   ),

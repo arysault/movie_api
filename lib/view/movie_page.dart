@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_api/model/results.dart';
+import 'package:movie_api/utils/constants.dart';
 import 'package:movie_api/utils/helpers/helpers.dart';
+import 'package:movie_api/viewmodel/movie_view_model.dart';
 
 class MoviePage extends StatefulWidget {
   final Results movie;
@@ -10,6 +12,21 @@ class MoviePage extends StatefulWidget {
 }
 
 class _MoviePageState extends State<MoviePage> {
+  MovieViewModel _movieViewModel = MovieViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _movieViewModel.check(movie: widget.movie);
+    favsListen();
+  }
+
+  favsListen() {
+    _movieViewModel.favsStream.listen((event) async {
+      await _movieViewModel.check(movie: widget.movie);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +34,31 @@ class _MoviePageState extends State<MoviePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff141E26),
         title: Text(widget.movie.title),
+      ),
+      floatingActionButton: StreamBuilder(
+        initialData: false,
+        stream: _movieViewModel.favsStream,
+        builder: (context, snapshot) {
+          return FloatingActionButton(
+            child: Icon(
+              Icons.favorite,
+              color: Colors.white,
+            ),
+            backgroundColor: (snapshot != null)
+                ? snapshot.data
+                    ? Color(0xff424E59)
+                    : Colors.red
+                : Color(0xff424E59),
+            onPressed: () async {
+              await _movieViewModel.check(movie: widget.movie);
+              if (snapshot.data == true) {
+                await _movieViewModel.save(movie: widget.movie);
+              } else {
+                await _movieViewModel.delete(movie: widget.movie);
+              }
+            },
+          );
+        },
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -27,8 +69,7 @@ class _MoviePageState extends State<MoviePage> {
                 child: Hero(
                   tag: widget.movie.id,
                   child: Image.network(
-                    "https://image.tmdb.org/t/p/w500/" +
-                        widget.movie?.backdropPath,
+                    Constants.kBaseUrlImage + widget.movie?.backdropPath,
                   ),
                 ),
               ),
